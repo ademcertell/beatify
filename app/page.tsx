@@ -1,14 +1,14 @@
 "use client"
 
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
+import TopTracks from '@/components/TopTracks';
+import Image from 'next/image';
 
 interface CurrentlyPlaying {
   albumImageUrl: string;
   title: string;
   artist: string;
   album: string;
-  isPlaying: boolean;
   songUrl: string;
 }
 
@@ -34,26 +34,30 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+    <div className="min-h-screen mt-10 flex flex-col items-center justify-center">
       {currentlyPlaying && (
-        <div className='bg-white rounded-lg p-6 shadow-md w-full max-w-md'>
-          <h2 className='text-2xl font-semibold mb-4 text-gray-800'>Now Playing</h2>
-          <div className='flex flex-col items-center justify-center'>
-            <img className='w-48 h-48 rounded-md border mb-4' src={currentlyPlaying.albumImageUrl}/>
-            <p className='text-lg font-bold text-gray-900'>{currentlyPlaying.title}</p>
-            <p className='text-base font-semibold text-gray-700'>{currentlyPlaying.artist}</p>
-            <p className='text-base text-gray-700'>{currentlyPlaying.album}</p>
-            <p className='text-base mt-4 text-gray-500'>
-              Is Playing: {currentlyPlaying.isPlaying ? <span className='text-green-500'>Yes</span> : <span className='text-red-500'>No</span>}
-            </p>
-            <p className='mt-4'>
-              <a className='text-blue-500 hover:underline' href={currentlyPlaying.songUrl}>Listen on Spotify</a>
-            </p>
+        <div className="bg-white rounded-lg p-6 shadow-md w-full max-w-md">
+          <div className="relative w-full h-60 mb-4">
+            <Image
+              src={currentlyPlaying.albumImageUrl}
+              alt="Album Cover"
+              layout="fill"
+              objectFit="cover"
+              className="rounded-md"
+            />
+          </div>
+          <div className="text-center">
+            <h2 className="text-2xl font-semibold mb-2 text-gray-800">{currentlyPlaying.title}</h2>
+            <p className="text-lg font-semibold text-rose-500">{currentlyPlaying.artist}</p>
+            <p className="text-base text-gray-400 mb-4">{currentlyPlaying.album}</p>
+            <a href={currentlyPlaying.songUrl} className="text-rose-500 no:underline">Listen on Spotify</a>
           </div>
         </div>
       )}
+      <TopTracks />
     </div>
   );
 };
 
 export default Home;
+
