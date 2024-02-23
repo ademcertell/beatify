@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react';
-import TopTracks from '@/components/TopTracks';
-import Image from 'next/image';
+import { useState, useEffect } from "react";
+import TopTracks from "@/components/TopTracks";
+import Image from "next/image";
 
 interface CurrentlyPlaying {
   albumImageUrl: string;
@@ -13,20 +13,24 @@ interface CurrentlyPlaying {
 }
 
 const Home = () => {
-  const [currentlyPlaying, setCurrentlyPlaying] = useState<CurrentlyPlaying | null>(null);
+  const [currentlyPlaying, setCurrentlyPlaying] =
+    useState<CurrentlyPlaying | null>(null);
 
   useEffect(() => {
     const fetchCurrentlyPlaying = async () => {
       try {
-        const response = await fetch('/api/now-playing');
+        const response = await fetch("/api/now-playing");
         if (response.ok) {
           const data = await response.json();
           setCurrentlyPlaying(data);
         } else {
-          console.error('Failed to fetch currently playing song:', response.statusText);
+          console.error(
+            "Failed to fetch currently playing song:",
+            response.statusText
+          );
         }
       } catch (error) {
-        console.error('Error fetching currently playing song:', error);
+        console.error("Error fetching currently playing song:", error);
       }
     };
 
@@ -47,10 +51,21 @@ const Home = () => {
             />
           </div>
           <div className="text-center">
-            <h2 className="text-2xl font-semibold mb-2 text-gray-800">{currentlyPlaying.title}</h2>
-            <p className="text-lg font-semibold text-rose-500">{currentlyPlaying.artist}</p>
-            <p className="text-base text-gray-400 mb-4">{currentlyPlaying.album}</p>
-            <a href={currentlyPlaying.songUrl} className="text-rose-500 no:underline">Listen on Spotify</a>
+            <h2 className="text-2xl font-semibold mb-2 text-gray-800">
+              {currentlyPlaying.title}
+            </h2>
+            <p className="text-lg font-semibold text-rose-500">
+              {currentlyPlaying.artist}
+            </p>
+            <p className="text-base text-gray-400 mb-4">
+              {currentlyPlaying.album}
+            </p>
+            <a
+              href={currentlyPlaying.songUrl}
+              className="text-rose-500 no:underline"
+            >
+              Listen on Spotify
+            </a>
           </div>
         </div>
       )}
@@ -60,4 +75,3 @@ const Home = () => {
 };
 
 export default Home;
-

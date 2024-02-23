@@ -1,7 +1,10 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 import { topTracks } from "../../../lib/spotify";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     const response = await topTracks();
     const { items } = await response.json();
@@ -21,6 +24,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(200).json(tracks);
   } catch (error) {
     console.error("Error fetching top tracks:", error);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 }

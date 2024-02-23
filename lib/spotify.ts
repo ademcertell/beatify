@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from "next";
 
 const getAccessToken = async () => {
-  const refresh_token: string = process.env.SPOTIFY_REFRESH_TOKEN || '';
-  
+  const refresh_token: string = process.env.SPOTIFY_REFRESH_TOKEN || "";
+
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {
@@ -50,11 +50,14 @@ export const currentlyPlayingSong = async () => {
   });
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     const tokenResponse = await getAccessToken();
     res.status(200).json(tokenResponse);
   } catch (error) {
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: "Internal Server Error" });
   }
 }
